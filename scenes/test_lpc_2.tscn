@@ -1,15 +1,19 @@
 [gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://tiles/lpc_test_base.png" type="Texture" id=1]
-[ext_resource path="res://tiles/collision_tiles.tres" type="TileSet" id=2]
-[ext_resource path="res://MyKinematicD.gd" type="Script" id=3]
-[ext_resource path="res://lpc_player.png" type="Texture" id=4]
-[ext_resource path="res://tiles/lpc_test_risen.png" type="Texture" id=5]
+[ext_resource path="res://Player.gd" type="Script" id=2]
+[ext_resource path="res://tiles/lpc_player.png" type="Texture" id=3]
+[ext_resource path="res://tiles/lpc_test_risen.png" type="Texture" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
 
 custom_solver_bias = 0.0
-extents = Vector2( 20, 30 )
+extents = Vector2( 16, 8 )
+
+[sub_resource type="RectangleShape2D" id=2]
+
+custom_solver_bias = 0.0
+extents = Vector2( 16, 16 )
 
 [node name="Land" type="Node2D" index="0"]
 
@@ -19,54 +23,146 @@ texture = ExtResource( 1 )
 centered = false
 _sections_unfolded = [ "Offset" ]
 
-[node name="CollisionMap" type="TileMap" parent="." index="1"]
+[node name="Player" type="KinematicBody2D" parent="." index="1"]
 
-mode = 0
-tile_set = ExtResource( 2 )
-cell_size = Vector2( 32, 32 )
-cell_quadrant_size = 16
-cell_custom_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
-cell_half_offset = 2
-cell_tile_origin = 0
-cell_y_sort = false
-cell_clip_uv = false
-collision_use_kinematic = false
-collision_friction = 1.0
-collision_bounce = 0.0
-collision_layer = 1
-collision_mask = 1
-occluder_light_mask = 1
-format = 1
-tile_data = PoolIntArray( -1, 3, 0, -65536, 3, 0, -65535, 3, 0, -65534, 3, 0, -65533, 3, 0, -65532, 3, 0, -65531, 3, 0, -65530, 3, 0, -65529, 3, 0, -65528, 3, 0, -65527, 3, 0, -65526, 3, 0, -65525, 3, 0, -65524, 3, 0, -65523, 3, 0, -65522, 3, 0, -65521, 3, 0, -65520, 3, 0, 65535, 3, 0, 5, 3, 0, 6, 3, 0, 7, 3, 0, 8, 3, 0, 9, 3, 0, 16, 3, 0, 131071, 3, 0, 65541, 3, 0, 65542, 3, 0, 65543, 3, 0, 65544, 3, 0, 65545, 3, 0, 65552, 3, 0, 196607, 3, 0, 131077, 3, 0, 131078, 3, 0, 131079, 4, 0, 131080, 3, 0, 131081, 3, 0, 131088, 3, 0, 262143, 3, 0, 196613, 3, 0, 196614, 3, 0, 196615, 4, 0, 196616, 3, 0, 196617, 3, 0, 196622, 3, 0, 196624, 3, 0, 327679, 3, 0, 262160, 3, 0, 393215, 3, 0, 327682, 3, 0, 327693, 3, 0, 327694, 3, 0, 327696, 3, 0, 458751, 3, 0, 393220, 3, 0, 393221, 3, 0, 393229, 3, 0, 393230, 3, 0, 393232, 3, 0, 524287, 3, 0, 458756, 3, 0, 458757, 3, 0, 458768, 3, 0, 589823, 3, 0, 524304, 3, 0, 655359, 3, 0, 589824, 2, 0, 589825, 2, 0, 589826, 2, 0, 589840, 3, 0, 720895, 3, 0, 655360, 1, 0, 655361, 1, 0, 655362, 2, 0, 655368, 3, 0, 655376, 3, 0, 786431, 3, 0, 720896, 3, 0, 720897, 1, 0, 720898, 2, 0, 720912, 3, 0, 851967, 3, 0, 786432, 1, 0, 786433, 1, 0, 786434, 2, 0, 786435, 2, 0, 786436, 2, 0, 786448, 3, 0, 917503, 3, 0, 851968, 1, 0, 851969, 1, 0, 851970, 1, 0, 851971, 1, 0, 851972, 2, 0, 851973, 2, 0, 851974, 3, 0, 851984, 3, 0, 983039, 3, 0, 917504, 1, 0, 917505, 1, 0, 917506, 3, 0, 917507, 1, 0, 917508, 1, 0, 917509, 2, 0, 917520, 3, 0, 1048575, 3, 0, 983040, 1, 0, 983041, 1, 0, 983042, 1, 0, 983043, 1, 0, 983044, 1, 0, 983045, 2, 0, 983056, 3, 0, 1114111, 3, 0, 1048576, 3, 0, 1048577, 3, 0, 1048578, 3, 0, 1048579, 3, 0, 1048580, 3, 0, 1048581, 3, 0, 1048582, 3, 0, 1048583, 3, 0, 1048584, 3, 0, 1048585, 3, 0, 1048586, 3, 0, 1048587, 3, 0, 1048588, 3, 0, 1048589, 3, 0, 1048590, 3, 0, 1048591, 3, 0, 1048592, 3, 0 )
-_sections_unfolded = [ "Cell", "Collision", "Transform", "Visibility", "Z Index" ]
-
-[node name="Player" type="KinematicBody2D" parent="." index="2"]
-
-position = Vector2( 160, 220 )
 input_pickable = false
 collision_layer = 1
 collision_mask = 1
 collision/safe_margin = 0.08
-script = ExtResource( 3 )
+script = ExtResource( 2 )
 _sections_unfolded = [ "Collision", "Pickable", "Transform", "collision" ]
 
 [node name="Sprite" type="Sprite" parent="Player" index="0"]
 
-position = Vector2( 80, 40 )
-texture = ExtResource( 4 )
+texture = ExtResource( 3 )
 region_enabled = true
 region_rect = Rect2( 0, 0, 64, 64 )
-_sections_unfolded = [ "Offset", "Region", "Transform" ]
+_sections_unfolded = [ "Offset", "Region", "Transform", "Visibility" ]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player" index="1"]
 
-position = Vector2( 80, 40 )
+position = Vector2( 0, 23 )
 shape = SubResource( 1 )
 _sections_unfolded = [ "Transform" ]
 
+[node name="Collision" type="KinematicBody2D" parent="." index="2"]
+
+input_pickable = true
+collision_layer = 1
+collision_mask = 1
+collision/safe_margin = 0.08
+_sections_unfolded = [ "Audio Bus", "Collision", "Material", "Pause", "Pickable", "Transform", "Visibility", "Z Index", "collision" ]
+
+[node name="tree_1" type="CollisionShape2D" parent="Collision" index="0"]
+
+position = Vector2( 80, 176 )
+shape = SubResource( 2 )
+_sections_unfolded = [ "Transform", "Visibility", "Z Index" ]
+
+[node name="tree_2" type="CollisionShape2D" parent="Collision" index="1"]
+
+position = Vector2( 272, 336 )
+shape = SubResource( 2 )
+_sections_unfolded = [ "Transform", "Visibility" ]
+
+[node name="tree_3" type="CollisionShape2D" parent="Collision" index="2"]
+
+position = Vector2( 464, 112 )
+shape = SubResource( 2 )
+_sections_unfolded = [ "Transform", "Visibility" ]
+
+[node name="statue_1" type="CollisionShape2D" parent="Collision" index="3"]
+
+position = Vector2( 208, 432 )
+shape = SubResource( 2 )
+_sections_unfolded = [ "Transform", "Visibility" ]
+
+[node name="rock_1_1" type="CollisionShape2D" parent="Collision" index="4"]
+
+position = Vector2( 144, 240 )
+shape = SubResource( 2 )
+_sections_unfolded = [ "Transform", "Visibility" ]
+
+[node name="rock_1_2" type="CollisionShape2D" parent="Collision" index="5"]
+
+position = Vector2( 176, 240 )
+shape = SubResource( 2 )
+_sections_unfolded = [ "Transform", "Visibility" ]
+
+[node name="rock_1_3" type="CollisionShape2D" parent="Collision" index="6"]
+
+position = Vector2( 144, 208 )
+shape = SubResource( 2 )
+_sections_unfolded = [ "Transform", "Visibility" ]
+
+[node name="rock_1_4" type="CollisionShape2D" parent="Collision" index="7"]
+
+position = Vector2( 176, 208 )
+shape = SubResource( 2 )
+_sections_unfolded = [ "Transform", "Visibility" ]
+
+[node name="rock_2_1" type="CollisionShape2D" parent="Collision" index="8"]
+
+position = Vector2( 432, 208 )
+shape = SubResource( 2 )
+_sections_unfolded = [ "Transform", "Visibility" ]
+
+[node name="rock_2_2" type="CollisionShape2D" parent="Collision" index="9"]
+
+position = Vector2( 464, 208 )
+shape = SubResource( 2 )
+_sections_unfolded = [ "Transform", "Visibility" ]
+
+[node name="rock_2_3" type="CollisionShape2D" parent="Collision" index="10"]
+
+position = Vector2( 464, 176 )
+shape = SubResource( 2 )
+_sections_unfolded = [ "Transform", "Visibility" ]
+
+[node name="rock_2_4" type="CollisionShape2D" parent="Collision" index="11"]
+
+position = Vector2( 432, 176 )
+shape = SubResource( 2 )
+_sections_unfolded = [ "Transform", "Visibility", "Z Index" ]
+
+[node name="house_1" type="CollisionPolygon2D" parent="Collision" index="12"]
+
+build_mode = 0
+polygon = PoolVector2Array( 160, 128, 224, 128, 224, 64, 256, 64, 256, 128, 320, 128, 320, 0, 160, 0 )
+
+[node name="house_1_door" type="CollisionPolygon2D" parent="Collision" index="13"]
+
+build_mode = 0
+polygon = PoolVector2Array( 224, 128, 256, 128, 256, 64, 224, 64 )
+
+[node name="walls_top" type="CollisionPolygon2D" parent="Collision" index="14"]
+
+build_mode = 0
+polygon = PoolVector2Array( 0, 0, -16, -16, 528, -16, 512, 0 )
+
+[node name="walls_right" type="CollisionPolygon2D" parent="Collision" index="15"]
+
+build_mode = 0
+polygon = PoolVector2Array( 512, 0, 528, -16, 528, 528, 512, 512 )
+
+[node name="walls_bottom" type="CollisionPolygon2D" parent="Collision" index="16"]
+
+build_mode = 0
+polygon = PoolVector2Array( 512, 512, 528, 528, -16, 528, 0, 512 )
+
+[node name="walls_left" type="CollisionPolygon2D" parent="Collision" index="17"]
+
+build_mode = 0
+polygon = PoolVector2Array( 0, 512, -16, 528, -16, -16, 0, 0 )
+
+[node name="water" type="CollisionPolygon2D" parent="Collision" index="18"]
+
+build_mode = 0
+polygon = PoolVector2Array( 176, 512, 176, 432, 144, 432, 144, 400, 80, 400, 80, 304, 0, 304, 0, 512 )
+
 [node name="Risen" type="Sprite" parent="." index="3"]
 
-texture = ExtResource( 5 )
+texture = ExtResource( 4 )
 centered = false
 _sections_unfolded = [ "Offset" ]
 

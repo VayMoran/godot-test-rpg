@@ -2,14 +2,14 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/lpc_player.png-82e765b4e4fb362db77fa5ffdd8e4594.stex"
+path="res://.import/lpc_player.png-f5788894605ae32eba7f3b1ffcc1ac75.stex"
 
 [deps]
 
-source_file="res://lpc_player.png"
+source_file="res://tiles/lpc_player.png"
 source_md5="02b1200ea79a3228df400858e3c56bc0"
 
-dest_files=[ "res://.import/lpc_player.png-82e765b4e4fb362db77fa5ffdd8e4594.stex" ]
+dest_files=[ "res://.import/lpc_player.png-f5788894605ae32eba7f3b1ffcc1ac75.stex" ]
 dest_md5="3cdc59aec05c7631bd7265b5687f976d"
 
 [params]

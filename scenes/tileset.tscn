@@ -1,10 +1,15 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://tiles/green.png" type="Texture" id=1]
 [ext_resource path="res://tiles/dark_blue.png" type="Texture" id=2]
 [ext_resource path="res://tiles/light_blue.png" type="Texture" id=3]
 [ext_resource path="res://tiles/red.png" type="Texture" id=4]
 [ext_resource path="res://tiles/yellow.png" type="Texture" id=5]
+
+[sub_resource type="RectangleShape2D" id=1]
+
+custom_solver_bias = 0.0
+extents = Vector2( 32, 32 )
 
 [node name="Node2D" type="Node2D"]
 
@@ -14,14 +19,18 @@ texture = ExtResource( 1 )
 centered = false
 _sections_unfolded = [ "Offset" ]
 
-[node name="StaticBody2D" type="KinematicBody2D" parent="Green" index="0"]
+[node name="StaticBody2D" type="StaticBody2D" parent="Green" index="0"]
 
 position = Vector2( 16, 16 )
 scale = Vector2( 0.5, 0.5 )
 input_pickable = false
 collision_layer = 1
 collision_mask = 1
-collision/safe_margin = 0.08
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+_sections_unfolded = [ "collision" ]
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Green/StaticBody2D" index="0"]
 
@@ -37,14 +46,17 @@ texture = ExtResource( 2 )
 centered = false
 _sections_unfolded = [ "Offset" ]
 
-[node name="StaticBody2D" type="KinematicBody2D" parent="BlueDark" index="0"]
+[node name="StaticBody2D" type="StaticBody2D" parent="BlueDark" index="0"]
 
 position = Vector2( 16, 16 )
 scale = Vector2( 0.5, 0.5 )
 input_pickable = false
 collision_layer = 1
 collision_mask = 1
-collision/safe_margin = 0.08
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
 _sections_unfolded = [ "Collision" ]
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="BlueDark/StaticBody2D" index="0"]
@@ -59,40 +71,47 @@ texture = ExtResource( 3 )
 centered = false
 _sections_unfolded = [ "Offset" ]
 
-[node name="StaticBody2D" type="KinematicBody2D" parent="BlueLight" index="0"]
+[node name="StaticBody2D" type="StaticBody2D" parent="BlueLight" index="0"]
 
 position = Vector2( 16, 16 )
 scale = Vector2( 0.5, 0.5 )
 input_pickable = false
 collision_layer = 1
 collision_mask = 1
-collision/safe_margin = 0.08
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="BlueLight/StaticBody2D" index="0"]
 
 build_mode = 0
 polygon = PoolVector2Array( -32, -32, 32, -32, 32, 32, -32, 32, -32, -32 )
 
-[node name="Red" type="Sprite" parent="." index="3"]
+[node name="StaticBody2D" type="StaticBody2D" parent="." index="3"]
 
-position = Vector2( 96, 0 )
-texture = ExtResource( 4 )
-centered = false
-_sections_unfolded = [ "Offset" ]
-
-[node name="StaticBody2D" type="KinematicBody2D" parent="Red" index="0"]
-
-position = Vector2( 16, 16 )
+position = Vector2( 112, 16 )
 scale = Vector2( 0.5, 0.5 )
 input_pickable = false
 collision_layer = 1
 collision_mask = 1
-collision/safe_margin = 0.08
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Red/StaticBody2D" index="0"]
+[node name="Red" type="Sprite" parent="StaticBody2D" index="0"]
 
-build_mode = 0
-polygon = PoolVector2Array( -32, -32, 32, -32, 32, 32, -32, 32, -32, -32 )
+position = Vector2( -32, -32 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 4 )
+centered = false
+_sections_unfolded = [ "Offset" ]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" index="1"]
+
+shape = SubResource( 1 )
+_sections_unfolded = [ "Transform", "Visibility" ]
 
 [node name="Yellow" type="Sprite" parent="." index="4"]
 
@@ -101,14 +120,17 @@ texture = ExtResource( 5 )
 centered = false
 _sections_unfolded = [ "Offset" ]
 
-[node name="StaticBody2D" type="KinematicBody2D" parent="Yellow" index="0"]
+[node name="StaticBody2D" type="StaticBody2D" parent="Yellow" index="0"]
 
 position = Vector2( 16, 16 )
 scale = Vector2( 0.5, 0.5 )
 input_pickable = false
 collision_layer = 1
 collision_mask = 1
-collision/safe_margin = 0.08
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Yellow/StaticBody2D" index="0"]
 
