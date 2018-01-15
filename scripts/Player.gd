@@ -36,6 +36,7 @@ func _physics_process(delta):
 	var move_left = Input.is_action_pressed("ui_left")
 	var move_down = Input.is_action_pressed("ui_down")
 	var move_right = Input.is_action_pressed("ui_right")
+	var escape = Input.is_action_just_pressed("ui_cancel")
 	
 	# Reset direction
 	var direction = Vector2(0,0)
@@ -72,7 +73,6 @@ func _physics_process(delta):
 		
 		update_animation()
 		
-		return
 		# Adjust Z order
 		for body in get_tree().get_nodes_in_group("entity"):
 			if(body == self):
@@ -81,7 +81,11 @@ func _physics_process(delta):
 				body.set_z(get_z() + 1)
 			else:
 				body.set_z(get_z() - 1)
-		
+	if (escape):
+		print("escape")
+		get_tree().paused = true
+		get_tree().change_scene("res://scenes/Pause.tscn")
+				
 func update_animation():
 	# Get animation tree player
 	var tree_player = get_node("treeplayer")

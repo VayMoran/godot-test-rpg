@@ -11,7 +11,9 @@
 [ext_resource path="res://tiles/walk_right.tres" type="Animation" id=9]
 [ext_resource path="res://tiles/walk_up.tres" type="Animation" id=10]
 
-[node name="Player" type="KinematicBody2D"]
+[node name="Player" type="KinematicBody2D" groups=[
+"player",
+]]
 
 input_pickable = false
 collision_layer = 1
@@ -26,7 +28,7 @@ walk_animation_scale = 1.2
 texture = ExtResource( 2 )
 vframes = 8
 hframes = 8
-frame = 16
+frame = 22
 region_rect = Rect2( 0, 0, 64, 64 )
 _sections_unfolded = [ "Animation", "Offset", "Region", "Transform" ]
 
@@ -34,7 +36,7 @@ _sections_unfolded = [ "Animation", "Offset", "Region", "Transform" ]
 
 position = Vector2( -31, -31 )
 build_mode = 0
-polygon = PoolVector2Array( 16, 64, 48, 64, 48, 48, 16, 48 )
+polygon = PoolVector2Array( 20, 64, 44, 64, 44, 48, 20, 48 )
 
 [node name="animation" type="AnimationPlayer" parent="." index="2"]
 
@@ -63,12 +65,36 @@ base_path = NodePath("..")
 active = false
 data = {
 "active": false,
-"connections": [ "move_transition", "out", 0, "walk_transition", "walk_scale", 0, "idle_transition", "move_transition", 0, "walk_scale", "move_transition", 1, "idle_down", "idle_transition", 0, "idle_up", "idle_transition", 1, "idle_left", "idle_transition", 2, "idle_right", "idle_transition", 3, "walk_down", "walk_transition", 0, "walk_up", "walk_transition", 1, "walk_left", "walk_transition", 2, "walk_right", "walk_transition", 3 ],
+"connections": [ "move_transition", "out", 0, "idle_down", "idle_transition", 0, "idle_up", "idle_transition", 1, "idle_left", "idle_transition", 2, "idle_right", "idle_transition", 3, "walk_down", "walk_transition", 0, "walk_up", "walk_transition", 1, "walk_left", "walk_transition", 2, "walk_right", "walk_transition", 3, "walk_transition", "walk_scale", 0, "idle_transition", "move_transition", 0, "walk_scale", "move_transition", 1 ],
 "master": NodePath(""),
 "nodes": [ {
 "id": "out",
 "position": Vector2( 679, 37 ),
 "type": "output"
+}, {
+"animation": ExtResource( 6 ),
+"filter": [  ],
+"id": "idle_up",
+"position": Vector2( 87, 85 ),
+"type": "animation"
+}, {
+"animation": ExtResource( 3 ),
+"filter": [  ],
+"id": "idle_down",
+"position": Vector2( 85, 38 ),
+"type": "animation"
+}, {
+"animation": ExtResource( 5 ),
+"filter": [  ],
+"id": "idle_right",
+"position": Vector2( 85, 187 ),
+"type": "animation"
+}, {
+"animation": ExtResource( 4 ),
+"filter": [  ],
+"id": "idle_left",
+"position": Vector2( 87, 139 ),
+"type": "animation"
 }, {
 "animation": ExtResource( 8 ),
 "filter": [  ],
@@ -76,20 +102,23 @@ data = {
 "position": Vector2( 86, 429 ),
 "type": "animation"
 }, {
-"id": "walk_scale",
-"position": Vector2( 385, 254 ),
-"scale": 1.0,
-"type": "timescale"
+"animation": ExtResource( 7 ),
+"filter": [  ],
+"id": "walk_down",
+"position": Vector2( 81, 328 ),
+"type": "animation"
 }, {
-"id": "move_transition",
-"position": Vector2( 524, 36 ),
-"transitions": [ {
-"auto_advance": false
+"animation": ExtResource( 9 ),
+"filter": [  ],
+"id": "walk_right",
+"position": Vector2( 87, 477 ),
+"type": "animation"
 }, {
-"auto_advance": false
-} ],
-"type": "transition",
-"xfade": 0.0
+"animation": ExtResource( 10 ),
+"filter": [  ],
+"id": "walk_up",
+"position": Vector2( 82, 379 ),
+"type": "animation"
 }, {
 "id": "idle_transition",
 "position": Vector2( 318, 32 ),
@@ -119,47 +148,20 @@ data = {
 "type": "transition",
 "xfade": 0.0
 }, {
-"animation": ExtResource( 3 ),
-"filter": [  ],
-"id": "idle_down",
-"position": Vector2( 85, 38 ),
-"type": "animation"
+"id": "walk_scale",
+"position": Vector2( 385, 254 ),
+"scale": 1.0,
+"type": "timescale"
 }, {
-"animation": ExtResource( 7 ),
-"filter": [  ],
-"id": "walk_down",
-"position": Vector2( 81, 328 ),
-"type": "animation"
+"id": "move_transition",
+"position": Vector2( 524, 36 ),
+"transitions": [ {
+"auto_advance": false
 }, {
-"animation": ExtResource( 10 ),
-"filter": [  ],
-"id": "walk_up",
-"position": Vector2( 82, 379 ),
-"type": "animation"
-}, {
-"animation": ExtResource( 6 ),
-"filter": [  ],
-"id": "idle_up",
-"position": Vector2( 87, 85 ),
-"type": "animation"
-}, {
-"animation": ExtResource( 5 ),
-"filter": [  ],
-"id": "idle_right",
-"position": Vector2( 85, 187 ),
-"type": "animation"
-}, {
-"animation": ExtResource( 4 ),
-"filter": [  ],
-"id": "idle_left",
-"position": Vector2( 87, 139 ),
-"type": "animation"
-}, {
-"animation": ExtResource( 9 ),
-"filter": [  ],
-"id": "walk_right",
-"position": Vector2( 87, 477 ),
-"type": "animation"
+"auto_advance": false
+} ],
+"type": "transition",
+"xfade": 0.0
 } ]
 }
 _sections_unfolded = [ "Pause", "Playback" ]
