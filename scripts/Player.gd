@@ -37,6 +37,7 @@ func _physics_process(delta):
 	var move_down = Input.is_action_pressed("ui_down")
 	var move_right = Input.is_action_pressed("ui_right")
 	var escape = Input.is_action_just_pressed("ui_cancel")
+	var menu = Input.is_action_just_pressed("ui_menu")
 	
 	# Reset direction
 	var direction = Vector2(0,0)
@@ -84,7 +85,11 @@ func _physics_process(delta):
 	if (escape):
 		print("escape")
 		get_tree().paused = true
-		get_tree().change_scene("res://scenes/Pause.tscn")
+		get_tree().change_scene("res://scenes/menu_pause.tscn")
+	if (menu):
+		print("Menu")
+		get_tree().paused = true
+		get_tree().change_scene("res://scenes/menu_landing.tscn")
 				
 func update_animation():
 	# Get animation tree player

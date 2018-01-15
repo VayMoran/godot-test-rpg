@@ -6,7 +6,7 @@ func _ready():
 func _on_House_body_entered(body):
 	print("You are in front of the house door!")
 	print(body)
-	get_tree().change_scene("res://scenes/House.tscn")
+	get_tree().change_scene("res://scenes/house.tscn")
 
 func _on_House_body_exited( body ):
 	print("You are walking away from the house!")

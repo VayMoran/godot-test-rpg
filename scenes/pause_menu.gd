@@ -19,4 +19,4 @@ func _process(delta):
 
 func _on_Paused_Button_pressed():
 	get_tree().paused = false
-	get_tree().change_scene("res://scenes/test_lpc_2.tscn")
+	get_tree().change_scene("res://scenes/land.tscn")

@@ -1,0 +1,158 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://tiles/lpc_test_base.png" type="Texture" id=1]
+[ext_resource path="res://scripts/water_detection.gd" type="Script" id=2]
+[ext_resource path="res://scenes/statue_events.gd" type="Script" id=3]
+[ext_resource path="res://scripts/house_events.gd" type="Script" id=4]
+[ext_resource path="res://scenes/player.tscn" type="PackedScene" id=5]
+[ext_resource path="res://tiles/lpc_test_risen.png" type="Texture" id=6]
+
+[sub_resource type="RectangleShape2D" id=1]
+
+custom_solver_bias = 0.0
+extents = Vector2( 16, 16 )
+
+[node name="Land" type="Node2D"]
+
+[node name="Base" type="Sprite" parent="." index="0"]
+
+texture = ExtResource( 1 )
+centered = false
+_sections_unfolded = [ "Offset" ]
+
+[node name="Collision" type="KinematicBody2D" parent="." index="1"]
+
+editor/display_folded = true
+input_pickable = true
+collision_layer = 1
+collision_mask = 1
+collision/safe_margin = 0.08
+_sections_unfolded = [ "Audio Bus", "Collision", "Material", "Pause", "Pickable", "Transform", "Visibility", "Z Index", "collision" ]
+
+[node name="tree_1" type="CollisionShape2D" parent="Collision" index="0"]
+
+position = Vector2( 80, 176 )
+shape = SubResource( 1 )
+_sections_unfolded = [ "Transform", "Visibility", "Z Index" ]
+
+[node name="tree_2" type="CollisionShape2D" parent="Collision" index="1"]
+
+position = Vector2( 272, 336 )
+shape = SubResource( 1 )
+_sections_unfolded = [ "Transform", "Visibility" ]
+
+[node name="tree_3" type="CollisionShape2D" parent="Collision" index="2"]
+
+position = Vector2( 464, 112 )
+shape = SubResource( 1 )
+_sections_unfolded = [ "Transform", "Visibility" ]
+
+[node name="statue_1" type="CollisionShape2D" parent="Collision" index="3"]
+
+position = Vector2( 208, 432 )
+shape = SubResource( 1 )
+_sections_unfolded = [ "Transform", "Visibility" ]
+
+[node name="walls_top" type="CollisionPolygon2D" parent="Collision" index="4"]
+
+build_mode = 0
+polygon = PoolVector2Array( 0, 0, -16, -16, 528, -16, 512, 0 )
+
+[node name="walls_right" type="CollisionPolygon2D" parent="Collision" index="5"]
+
+build_mode = 0
+polygon = PoolVector2Array( 512, 0, 528, -16, 528, 528, 512, 512 )
+
+[node name="walls_bottom" type="CollisionPolygon2D" parent="Collision" index="6"]
+
+build_mode = 0
+polygon = PoolVector2Array( 512, 512, 528, 528, -16, 528, 0, 512 )
+
+[node name="walls_left" type="CollisionPolygon2D" parent="Collision" index="7"]
+
+build_mode = 0
+polygon = PoolVector2Array( 0, 512, -16, 528, -16, -16, 0, 0 )
+
+[node name="house_1" type="CollisionPolygon2D" parent="Collision" index="8"]
+
+build_mode = 0
+polygon = PoolVector2Array( 160, 0, 160, 128, 320, 128, 320, 0 )
+
+[node name="rock_1" type="CollisionPolygon2D" parent="Collision" index="9"]
+
+build_mode = 0
+polygon = PoolVector2Array( 128, 256, 192, 256, 192, 192, 128, 192 )
+
+[node name="rock_2" type="CollisionPolygon2D" parent="Collision" index="10"]
+
+position = Vector2( 288, -32 )
+build_mode = 0
+polygon = PoolVector2Array( 128, 256, 192, 256, 192, 192, 128, 192 )
+
+[node name="Water" type="Area2D" parent="." index="2"]
+
+editor/display_folded = true
+input_pickable = true
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+audio_bus_override = false
+audio_bus_name = "Master"
+
+[node name="water" type="CollisionPolygon2D" parent="Water" index="0"]
+
+build_mode = 0
+polygon = PoolVector2Array( 0, 304, 80, 304, 80, 400, 144, 400, 144, 432, 176, 432, 176, 512, 0, 512 )
+script = ExtResource( 2 )
+
+[node name="Statue" type="Area2D" parent="." index="3"]
+
+input_pickable = true
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+audio_bus_override = false
+audio_bus_name = "Master"
+
+[node name="statue" type="CollisionPolygon2D" parent="Statue" index="0"]
+
+build_mode = 0
+polygon = PoolVector2Array( 192, 464, 240, 464, 240, 400, 192, 400 )
+script = ExtResource( 3 )
+
+[node name="HouseEvents" type="Area2D" parent="." index="4"]
+
+input_pickable = true
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+audio_bus_override = false
+audio_bus_name = "Master"
+
+[node name="house" type="CollisionPolygon2D" parent="HouseEvents" index="0"]
+
+position = Vector2( -0.00144958, 5 )
+build_mode = 0
+polygon = PoolVector2Array( 224, 128, 224, 160, 256, 160, 256, 128 )
+script = ExtResource( 4 )
+
+[node name="Player" parent="." index="5" instance=ExtResource( 5 )]
+
+[node name="Risen" type="Sprite" parent="." index="6"]
+
+texture = ExtResource( 6 )
+centered = false
+_sections_unfolded = [ "Offset" ]
+
+[connection signal="body_entered" from="Water" to="Water/water" method="_on_Events_body_entered"]
+
+[connection signal="body_exited" from="Water" to="Water/water" method="_on_Events_body_exited"]
+
+[connection signal="body_entered" from="HouseEvents" to="HouseEvents/house" method="_on_House_body_entered"]
+
+[connection signal="body_exited" from="HouseEvents" to="HouseEvents/house" method="_on_House_body_exited"]
+
+

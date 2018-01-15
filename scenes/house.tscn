@@ -1,0 +1,92 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://tiles/house.png" type="Texture" id=1]
+[ext_resource path="res://scenes/player.tscn" type="PackedScene" id=2]
+
+[sub_resource type="RectangleShape2D" id=1]
+
+custom_solver_bias = 0.0
+extents = Vector2( 16, 16 )
+
+[node name="House" type="Node2D"]
+
+[node name="Sprite" type="Sprite" parent="." index="0"]
+
+texture = ExtResource( 1 )
+centered = false
+_sections_unfolded = [ "Offset", "Transform" ]
+
+[node name="Player" parent="." index="1" instance=ExtResource( 2 )]
+
+position = Vector2( 219, 479 )
+
+[node name="Collision" type="KinematicBody2D" parent="." index="2"]
+
+editor/display_folded = true
+input_pickable = false
+collision_layer = 1
+collision_mask = 1
+collision/safe_margin = 0.08
+_sections_unfolded = [ "Collision", "Pickable", "collision" ]
+
+[node name="table" type="CollisionShape2D" parent="Collision" index="0"]
+
+position = Vector2( 48, 240 )
+shape = SubResource( 1 )
+
+[node name="bed_1" type="CollisionShape2D" parent="Collision" index="1"]
+
+position = Vector2( 80, 304 )
+shape = SubResource( 1 )
+
+[node name="bed_2" type="CollisionShape2D" parent="Collision" index="2"]
+
+position = Vector2( 80, 272 )
+shape = SubResource( 1 )
+
+[node name="bed_3" type="CollisionShape2D" parent="Collision" index="3"]
+
+position = Vector2( 80, 240 )
+shape = SubResource( 1 )
+
+[node name="closet" type="CollisionShape2D" parent="Collision" index="4"]
+
+position = Vector2( 144, 208 )
+shape = SubResource( 1 )
+
+[node name="bookcase_1" type="CollisionShape2D" parent="Collision" index="5"]
+
+position = Vector2( 176, 208 )
+shape = SubResource( 1 )
+
+[node name="bookcase_2" type="CollisionShape2D" parent="Collision" index="6"]
+
+position = Vector2( 208, 208 )
+shape = SubResource( 1 )
+
+[node name="chest_1_1" type="CollisionShape2D" parent="Collision" index="7"]
+
+position = Vector2( 400, 272 )
+shape = SubResource( 1 )
+
+[node name="chest_1_2" type="CollisionShape2D" parent="Collision" index="8"]
+
+position = Vector2( 400, 240 )
+shape = SubResource( 1 )
+
+[node name="wall_1" type="CollisionPolygon2D" parent="Collision" index="9"]
+
+build_mode = 0
+polygon = PoolVector2Array( 256, 512, 256, 416, 416, 416, 416, 192, 512, 0, 512, 512 )
+
+[node name="wall_2" type="CollisionPolygon2D" parent="Collision" index="10"]
+
+build_mode = 0
+polygon = PoolVector2Array( 416, 192, 512, 0, 0, 0, 0, 192 )
+
+[node name="wall_3" type="CollisionPolygon2D" parent="Collision" index="11"]
+
+build_mode = 0
+polygon = PoolVector2Array( 192, 512, 192, 416, 32, 416, 32, 192, 0, 192, 0, 512 )
+
+
