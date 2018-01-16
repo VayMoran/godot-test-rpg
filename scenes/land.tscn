@@ -14,6 +14,11 @@ extents = Vector2( 16, 16 )
 
 [node name="Land" type="Node2D"]
 
+editor/display_folded = true
+__meta__ = {
+"_edit_vertical_guides_": [ -528.0 ]
+}
+
 [node name="Base" type="Sprite" parent="." index="0"]
 
 texture = ExtResource( 1 )
@@ -108,6 +113,7 @@ script = ExtResource( 2 )
 
 [node name="Statue" type="Area2D" parent="." index="3"]
 
+editor/display_folded = true
 input_pickable = true
 gravity_vec = Vector2( 0, 1 )
 gravity = 98.0
@@ -124,6 +130,7 @@ script = ExtResource( 3 )
 
 [node name="HouseEvents" type="Area2D" parent="." index="4"]
 
+editor/display_folded = true
 input_pickable = true
 gravity_vec = Vector2( 0, 1 )
 gravity = 98.0
@@ -140,6 +147,9 @@ polygon = PoolVector2Array( 224, 128, 224, 160, 256, 160, 256, 128 )
 script = ExtResource( 4 )
 
 [node name="Player" parent="." index="5" instance=ExtResource( 5 )]
+
+position = Vector2( 109, 46 )
+_sections_unfolded = [ "Collision", "Pickable", "Transform" ]
 
 [node name="Risen" type="Sprite" parent="." index="6"]
 

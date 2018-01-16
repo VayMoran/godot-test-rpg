@@ -11,7 +11,7 @@
 [ext_resource path="res://tiles/walk_right.tres" type="Animation" id=9]
 [ext_resource path="res://tiles/walk_up.tres" type="Animation" id=10]
 
-[node name="Player" type="KinematicBody2D" groups=[
+[node name="Player" type="KinematicBody2D" index="0" groups=[
 "player",
 ]]
 
@@ -72,10 +72,10 @@ data = {
 "position": Vector2( 679, 37 ),
 "type": "output"
 }, {
-"animation": ExtResource( 6 ),
+"animation": ExtResource( 4 ),
 "filter": [  ],
-"id": "idle_up",
-"position": Vector2( 87, 85 ),
+"id": "idle_left",
+"position": Vector2( 87, 139 ),
 "type": "animation"
 }, {
 "animation": ExtResource( 3 ),
@@ -90,10 +90,10 @@ data = {
 "position": Vector2( 85, 187 ),
 "type": "animation"
 }, {
-"animation": ExtResource( 4 ),
+"animation": ExtResource( 6 ),
 "filter": [  ],
-"id": "idle_left",
-"position": Vector2( 87, 139 ),
+"id": "idle_up",
+"position": Vector2( 87, 85 ),
 "type": "animation"
 }, {
 "animation": ExtResource( 8 ),

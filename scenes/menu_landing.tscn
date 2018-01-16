@@ -11,7 +11,7 @@ lossy_quality = 0.7
 flags = 7
 size = Vector2( 0, 0 )
 
-[node name="Control" type="Control" index="0"]
+[node name="Control" type="Control"]
 
 pause_mode = 2
 anchor_left = 0.0

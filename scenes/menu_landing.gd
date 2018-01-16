@@ -7,4 +7,4 @@ func _physics_process(delta):
 	
 	if (escape):
 		get_tree().paused = false
-		get_tree().change_scene("res://scenes/land.tscn")
+		get_node("/root/Global").goto_scene("res://scenes/land.tscn")

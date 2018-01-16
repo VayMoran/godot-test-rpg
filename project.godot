@@ -14,6 +14,10 @@ config/name="godot-test-rpg"
 run/main_scene="res://scenes/land.tscn"
 config/icon="res://icon.png"
 
+[autoload]
+
+Global="*res://scripts/Global.gd"
+
 [display]
 
 window/size/width=1280
