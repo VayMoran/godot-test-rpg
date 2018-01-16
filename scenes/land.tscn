@@ -12,9 +12,8 @@
 custom_solver_bias = 0.0
 extents = Vector2( 16, 16 )
 
-[node name="Land" type="Node2D"]
+[node name="Land" type="Node2D" index="0"]
 
-editor/display_folded = true
 __meta__ = {
 "_edit_vertical_guides_": [ -528.0 ]
 }
@@ -96,7 +95,6 @@ polygon = PoolVector2Array( 128, 256, 192, 256, 192, 192, 128, 192 )
 
 [node name="Water" type="Area2D" parent="." index="2"]
 
-editor/display_folded = true
 input_pickable = true
 gravity_vec = Vector2( 0, 1 )
 gravity = 98.0
@@ -130,7 +128,6 @@ script = ExtResource( 3 )
 
 [node name="HouseEvents" type="Area2D" parent="." index="4"]
 
-editor/display_folded = true
 input_pickable = true
 gravity_vec = Vector2( 0, 1 )
 gravity = 98.0
@@ -141,7 +138,7 @@ audio_bus_name = "Master"
 
 [node name="house" type="CollisionPolygon2D" parent="HouseEvents" index="0"]
 
-position = Vector2( -0.00144958, 5 )
+position = Vector2( -0.00152587, 0 )
 build_mode = 0
 polygon = PoolVector2Array( 224, 128, 224, 160, 256, 160, 256, 128 )
 script = ExtResource( 4 )
@@ -157,9 +154,9 @@ texture = ExtResource( 6 )
 centered = false
 _sections_unfolded = [ "Offset" ]
 
-[connection signal="body_entered" from="Water" to="Water/water" method="_on_Events_body_entered"]
+[connection signal="body_entered" from="Water" to="Water/water" method="_on_Water_body_entered"]
 
-[connection signal="body_exited" from="Water" to="Water/water" method="_on_Events_body_exited"]
+[connection signal="body_exited" from="Water" to="Water/water" method="_on_Water_body_exited"]
 
 [connection signal="body_entered" from="HouseEvents" to="HouseEvents/house" method="_on_House_body_entered"]
 

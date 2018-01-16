@@ -11,7 +11,7 @@
 [ext_resource path="res://tiles/walk_right.tres" type="Animation" id=9]
 [ext_resource path="res://tiles/walk_up.tres" type="Animation" id=10]
 
-[node name="Player" type="KinematicBody2D" index="0" groups=[
+[node name="Player" type="KinematicBody2D" groups=[
 "player",
 ]]
 
@@ -168,7 +168,6 @@ _sections_unfolded = [ "Pause", "Playback" ]
 
 [node name="interaction_area" type="Area2D" parent="." index="4"]
 
-editor/display_folded = true
 input_pickable = true
 gravity_vec = Vector2( 0, 1 )
 gravity = 98.0

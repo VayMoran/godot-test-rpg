@@ -1,6 +1,10 @@
 extends Node
 
+# Hold the scene
 var current_scene
+
+# Hold the position 
+var current_position = Vector2(0,0)
 
 func _ready():
 	var root = get_tree().get_root()
@@ -28,3 +32,8 @@ func _deferred_goto_scene(path):
 	get_tree().get_root().add_child(current_scene)
 	# Optional to make it compatible with the SceneTree.change_scene() API
 	get_tree().set_current_scene(current_scene)
+	
+func set_player_position( position_coordinates ):
+	current_position = position_coordinates
+func get_player_position():
+	return current_position

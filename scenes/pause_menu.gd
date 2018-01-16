@@ -18,5 +18,7 @@ func _process(delta):
 
 
 func _on_Paused_Button_pressed():
+	# Resume game
 	get_tree().paused = false
+	# Load main land scene
 	get_node("/root/Global").goto_scene("res://scenes/land.tscn")

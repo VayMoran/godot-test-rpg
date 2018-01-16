@@ -17,9 +17,6 @@ export(float) var walk_animation_scale = 1.2
 var current_animation = IDLE
 var current_direction = DOWN
 
-# Position Tracking
-var player_position = Vector2(0,0)
-
 func _ready():
 	#Create variable representing animation tree player
 	var treeplayer = get_node("treeplayer")
@@ -28,6 +25,8 @@ func _ready():
 	treeplayer.transition_node_set_current("idle_transition", current_direction)
 	treeplayer.timescale_node_set_scale("walk_scale", walk_animation_scale)
 	treeplayer.set_active(true)
+	
+	self.position = get_node("/root/Global").get_player_position()
 
 func _physics_process(delta):
 	var is_paused = get_tree().is_paused();
@@ -83,11 +82,18 @@ func _physics_process(delta):
 			else:
 				body.set_z(get_z() - 1)
 	if (escape):
+		# Pause the game
 		get_tree().paused = true
+		# Save position on map for persistance
+		get_node("/root/Global").set_player_position(self.position)
+		# Switch to menu screen
 		get_node("/root/Global").goto_scene("res://scenes/menu_pause.tscn")
 	if (menu):
-		print("Menu")
+		# Pause the game
 		get_tree().paused = true
+		# Save postion on map for persistance
+		get_node("/root/Global").set_player_position(self.position)
+		# Switch to menu screen
 		get_node("/root/Global").goto_scene("res://scenes/menu_landing.tscn")
 				
 func update_animation():

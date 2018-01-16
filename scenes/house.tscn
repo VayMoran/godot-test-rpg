@@ -18,7 +18,7 @@ _sections_unfolded = [ "Offset", "Transform" ]
 
 [node name="Player" parent="." index="1" instance=ExtResource( 2 )]
 
-position = Vector2( 219, 479 )
+position = Vector2( 224, 336 )
 
 [node name="Collision" type="KinematicBody2D" parent="." index="2"]
 
