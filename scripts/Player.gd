@@ -25,16 +25,17 @@ func _ready():
 	treeplayer.transition_node_set_current("idle_transition", current_direction)
 	treeplayer.timescale_node_set_scale("walk_scale", walk_animation_scale)
 	treeplayer.set_active(true)
-	
+	# Pull position from global value
 	self.position = get_node("/root/Global").get_player_position()
 
 func _physics_process(delta):
 	var is_paused = get_tree().is_paused();
-	# Poll for movement
+	# Poll for input
 	var move_up = Input.is_action_pressed("ui_up")
 	var move_left = Input.is_action_pressed("ui_left")
 	var move_down = Input.is_action_pressed("ui_down")
 	var move_right = Input.is_action_pressed("ui_right")
+	var interact = Input.is_action_just_pressed("ui_accept")
 	var escape = Input.is_action_just_pressed("ui_cancel")
 	var menu = Input.is_action_just_pressed("ui_menu")
 	 
@@ -85,16 +86,20 @@ func _physics_process(delta):
 		# Pause the game
 		get_tree().paused = true
 		# Save position on map for persistance
-		get_node("/root/Global").set_player_position(self.position)
+		get_node("/root/Global").set_player_position(self.position, get_node("/root/Global").current_location)
 		# Switch to menu screen
 		get_node("/root/Global").goto_scene("res://scenes/menu_pause.tscn")
 	if (menu):
 		# Pause the game
 		get_tree().paused = true
 		# Save postion on map for persistance
-		get_node("/root/Global").set_player_position(self.position)
+		get_node("/root/Global").set_player_position(self.position, get_node("/root/Global").current_location)
 		# Switch to menu screen
 		get_node("/root/Global").goto_scene("res://scenes/menu_landing.tscn")
+	if (interact):
+		get_node("/root/Global").is_interacting = true
+		
+	print(get_node("/root/Global").current_position)
 				
 func update_animation():
 	# Get animation tree player

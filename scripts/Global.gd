@@ -3,8 +3,15 @@ extends Node
 # Hold the scene
 var current_scene
 
-# Hold the position 
-var current_position = Vector2(0,0)
+# Default location
+var current_location = "land"
+
+var current_position = {
+	"land" : Vector2(0,0),
+	"house" : Vector2(222,474)}
+
+# Check if interacting
+var is_interacting = false
 
 func _ready():
 	var root = get_tree().get_root()
@@ -33,7 +40,8 @@ func _deferred_goto_scene(path):
 	# Optional to make it compatible with the SceneTree.change_scene() API
 	get_tree().set_current_scene(current_scene)
 	
-func set_player_position( position_coordinates ):
-	current_position = position_coordinates
+func set_player_position(position_coordinates, location):
+	current_position[location] = position_coordinates
 func get_player_position():
-	return current_position
+	return current_position[current_location]
+	

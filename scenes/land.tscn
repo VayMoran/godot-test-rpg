@@ -12,7 +12,7 @@
 custom_solver_bias = 0.0
 extents = Vector2( 16, 16 )
 
-[node name="Land" type="Node2D" index="0"]
+[node name="Land" type="Node2D"]
 
 __meta__ = {
 "_edit_vertical_guides_": [ -528.0 ]
@@ -102,6 +102,7 @@ linear_damp = 0.1
 angular_damp = 1.0
 audio_bus_override = false
 audio_bus_name = "Master"
+_sections_unfolded = [ "Collision" ]
 
 [node name="water" type="CollisionPolygon2D" parent="Water" index="0"]
 
@@ -147,6 +148,8 @@ script = ExtResource( 4 )
 
 position = Vector2( 109, 46 )
 _sections_unfolded = [ "Collision", "Pickable", "Transform" ]
+walk_speed = 150.0
+walk_animation_scale = 2.0
 
 [node name="Risen" type="Sprite" parent="." index="6"]
 
