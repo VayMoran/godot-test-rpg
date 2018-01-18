@@ -1,95 +1,332 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://tiles/house.png" type="Texture" id=1]
-[ext_resource path="res://scenes/player.tscn" type="PackedScene" id=2]
+[ext_resource path="res://tiles/house.tmx" type="PackedScene" id=1]
+[ext_resource path="res://scenes/house.gd" type="Script" id=2]
 
-[sub_resource type="RectangleShape2D" id=1]
+[node name="house" index="0" instance=ExtResource( 1 )]
 
-custom_solver_bias = 0.0
-extents = Vector2( 16, 16 )
+script = ExtResource( 2 )
 
-[node name="House" type="Node2D"]
+[node name="border" type="Node2D" parent="." index="4"]
 
-[node name="Sprite" type="Sprite" parent="." index="0"]
+editor/display_folded = true
+visible = false
 
-texture = ExtResource( 1 )
-centered = false
-_sections_unfolded = [ "Offset", "Transform" ]
+[node name="wall" type="StaticBody2D" parent="border" index="0"]
 
-[node name="Player" parent="." index="1" instance=ExtResource( 2 )]
+input_pickable = false
+collision_layer = 1
+collision_mask = 1
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
 
-position = Vector2( 224, 306 )
+[node name="body" type="CollisionPolygon2D" parent="border/wall" index="0"]
 
-[node name="Collision" type="KinematicBody2D" parent="." index="2"]
+build_mode = 1
+polygon = PoolVector2Array( 480, 448, 768, 448, 768, 320, 480, 320 )
+
+[node name="decorations" type="Node2D" parent="." index="5"]
+
+editor/display_folded = true
+
+[node name="bed" type="StaticBody2D" parent="decorations" index="0"]
 
 editor/display_folded = true
 input_pickable = false
 collision_layer = 1
 collision_mask = 1
-collision/safe_margin = 0.08
-_sections_unfolded = [ "Collision", "Pickable", "collision" ]
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
 
-[node name="table" type="CollisionShape2D" parent="Collision" index="0"]
-
-position = Vector2( 48, 240 )
-shape = SubResource( 1 )
-
-[node name="bed_1" type="CollisionShape2D" parent="Collision" index="1"]
-
-position = Vector2( 80, 304 )
-shape = SubResource( 1 )
-
-[node name="bed_2" type="CollisionShape2D" parent="Collision" index="2"]
-
-position = Vector2( 80, 272 )
-shape = SubResource( 1 )
-
-[node name="bed_3" type="CollisionShape2D" parent="Collision" index="3"]
-
-position = Vector2( 80, 240 )
-shape = SubResource( 1 )
-
-[node name="closet" type="CollisionShape2D" parent="Collision" index="4"]
-
-position = Vector2( 144, 208 )
-shape = SubResource( 1 )
-
-[node name="bookcase_1" type="CollisionShape2D" parent="Collision" index="5"]
-
-position = Vector2( 176, 208 )
-shape = SubResource( 1 )
-
-[node name="bookcase_2" type="CollisionShape2D" parent="Collision" index="6"]
-
-position = Vector2( 208, 208 )
-shape = SubResource( 1 )
-
-[node name="chest_1_1" type="CollisionShape2D" parent="Collision" index="7"]
-
-position = Vector2( 400, 272 )
-shape = SubResource( 1 )
-
-[node name="chest_1_2" type="CollisionShape2D" parent="Collision" index="8"]
-
-position = Vector2( 400, 240 )
-shape = SubResource( 1 )
-
-[node name="wall_1" type="CollisionPolygon2D" parent="Collision" index="9"]
+[node name="body" type="CollisionPolygon2D" parent="decorations/bed" index="0"]
 
 build_mode = 0
-polygon = PoolVector2Array( 256, 512, 256, 416, 416, 416, 416, 192, 512, 0, 512, 512 )
+polygon = PoolVector2Array( 480, 384, 512, 384, 512, 288, 480, 288 )
 
-[node name="wall_2" type="CollisionPolygon2D" parent="Collision" index="10"]
+[node name="bed_event" type="Area2D" parent="decorations" index="1"]
+
+editor/display_folded = true
+input_pickable = true
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+audio_bus_override = false
+audio_bus_name = "Master"
+
+[node name="event" type="CollisionPolygon2D" parent="decorations/bed_event" index="0"]
 
 build_mode = 0
-polygon = PoolVector2Array( 416, 192, 512, 0, 0, 0, 0, 192 )
+polygon = PoolVector2Array( 512, 320, 520, 320, 520, 384, 512, 384 )
 
-[node name="wall_3" type="CollisionPolygon2D" parent="Collision" index="11"]
+[node name="chair_1" type="StaticBody2D" parent="decorations" index="2"]
+
+editor/display_folded = true
+input_pickable = false
+collision_layer = 1
+collision_mask = 1
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+
+[node name="body" type="CollisionPolygon2D" parent="decorations/chair_1" index="0"]
 
 build_mode = 0
-polygon = PoolVector2Array( 192, 512, 192, 416, 32, 416, 32, 192, 0, 192, 0, 512 )
+polygon = PoolVector2Array( 480, 416, 512, 416, 512, 384, 480, 384 )
 
-[node name="House" type="Area2D" parent="." index="3"]
+[node name="chair_2" type="StaticBody2D" parent="decorations" index="3"]
+
+editor/display_folded = true
+input_pickable = false
+collision_layer = 1
+collision_mask = 1
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+
+[node name="body" type="CollisionPolygon2D" parent="decorations/chair_2" index="0"]
+
+position = Vector2( 32, 32 )
+build_mode = 0
+polygon = PoolVector2Array( 480, 416, 512, 416, 512, 384, 480, 384 )
+
+[node name="table" type="StaticBody2D" parent="decorations" index="4"]
+
+editor/display_folded = true
+input_pickable = false
+collision_layer = 1
+collision_mask = 1
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+
+[node name="body" type="CollisionPolygon2D" parent="decorations/table" index="0"]
+
+position = Vector2( 0, 32 )
+build_mode = 0
+polygon = PoolVector2Array( 480, 416, 512, 416, 512, 384, 480, 384 )
+
+[node name="bookshelf_1" type="StaticBody2D" parent="decorations" index="5"]
+
+editor/display_folded = true
+input_pickable = false
+collision_layer = 1
+collision_mask = 1
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+
+[node name="body" type="CollisionPolygon2D" parent="decorations/bookshelf_1" index="0"]
+
+build_mode = 0
+polygon = PoolVector2Array( 544, 352, 576, 352, 576, 288, 544, 288 )
+
+[node name="bookshelf_2" type="StaticBody2D" parent="decorations" index="6"]
+
+editor/display_folded = true
+input_pickable = false
+collision_layer = 1
+collision_mask = 1
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+
+[node name="body" type="CollisionPolygon2D" parent="decorations/bookshelf_2" index="0"]
+
+position = Vector2( 64, 0 )
+build_mode = 0
+polygon = PoolVector2Array( 544, 352, 576, 352, 576, 288, 544, 288 )
+
+[node name="bookshelf_1_event" type="Area2D" parent="decorations" index="7"]
+
+editor/display_folded = true
+input_pickable = true
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+audio_bus_override = false
+audio_bus_name = "Master"
+
+[node name="event" type="CollisionPolygon2D" parent="decorations/bookshelf_1_event" index="0"]
+
+build_mode = 0
+polygon = PoolVector2Array( 544, 352, 576, 352, 576, 360, 544, 360 )
+
+[node name="bookshelf_2_event" type="Area2D" parent="decorations" index="8"]
+
+editor/display_folded = true
+input_pickable = true
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+audio_bus_override = false
+audio_bus_name = "Master"
+
+[node name="event" type="CollisionPolygon2D" parent="decorations/bookshelf_2_event" index="0"]
+
+position = Vector2( 64, 0 )
+build_mode = 0
+polygon = PoolVector2Array( 544, 352, 576, 352, 576, 360, 544, 360 )
+
+[node name="closet" type="StaticBody2D" parent="decorations" index="9"]
+
+editor/display_folded = true
+input_pickable = false
+collision_layer = 1
+collision_mask = 1
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+
+[node name="body" type="CollisionPolygon2D" parent="decorations/closet" index="0"]
+
+position = Vector2( 32, 0 )
+build_mode = 0
+polygon = PoolVector2Array( 544, 352, 576, 352, 576, 288, 544, 288 )
+
+[node name="closet_event" type="Area2D" parent="decorations" index="10"]
+
+editor/display_folded = true
+input_pickable = true
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+audio_bus_override = false
+audio_bus_name = "Master"
+
+[node name="event" type="CollisionPolygon2D" parent="decorations/closet_event" index="0"]
+
+position = Vector2( 32, 0 )
+build_mode = 0
+polygon = PoolVector2Array( 544, 352, 576, 352, 576, 360, 544, 360 )
+
+[node name="sink" type="StaticBody2D" parent="decorations" index="11"]
+
+input_pickable = false
+collision_layer = 1
+collision_mask = 1
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+
+[node name="body" type="CollisionPolygon2D" parent="decorations/sink" index="0"]
+
+position = Vector2( 0, 4 )
+build_mode = 0
+polygon = PoolVector2Array( 672, 336, 704, 336, 704, 304, 672, 304 )
+
+[node name="stove" type="StaticBody2D" parent="decorations" index="12"]
+
+input_pickable = false
+collision_layer = 1
+collision_mask = 1
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+
+[node name="body" type="CollisionPolygon2D" parent="decorations/stove" index="0"]
+
+position = Vector2( 32, 4 )
+build_mode = 0
+polygon = PoolVector2Array( 672, 336, 704, 336, 704, 304, 672, 304 )
+
+[node name="counter" type="StaticBody2D" parent="decorations" index="13"]
+
+input_pickable = false
+collision_layer = 1
+collision_mask = 1
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+
+[node name="body" type="CollisionPolygon2D" parent="decorations/counter" index="0"]
+
+position = Vector2( 64, 4 )
+build_mode = 0
+polygon = PoolVector2Array( 672, 336, 704, 336, 704, 304, 672, 304 )
+
+[node name="sink_event" type="Area2D" parent="decorations" index="14"]
+
+input_pickable = false
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+audio_bus_override = false
+audio_bus_name = "Master"
+
+[node name="event" type="CollisionPolygon2D" parent="decorations/sink_event" index="0"]
+
+position = Vector2( 0, 4 )
+build_mode = 0
+polygon = PoolVector2Array( 672, 336, 704, 336, 704, 344, 672, 344 )
+
+[node name="stove_event" type="Area2D" parent="decorations" index="15"]
+
+input_pickable = false
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+audio_bus_override = false
+audio_bus_name = "Master"
+
+[node name="event" type="CollisionPolygon2D" parent="decorations/stove_event" index="0"]
+
+position = Vector2( 32, 4 )
+build_mode = 0
+polygon = PoolVector2Array( 672, 336, 704, 336, 704, 344, 672, 344 )
+
+[node name="counter_event" type="Area2D" parent="decorations" index="16"]
+
+input_pickable = false
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+audio_bus_override = false
+audio_bus_name = "Master"
+
+[node name="event" type="CollisionPolygon2D" parent="decorations/counter_event" index="0"]
+
+position = Vector2( 64, 4 )
+build_mode = 0
+polygon = PoolVector2Array( 672, 336, 704, 336, 704, 344, 672, 344 )
+
+[node name="treasure_chest" type="StaticBody2D" parent="decorations" index="17"]
+
+input_pickable = false
+collision_layer = 1
+collision_mask = 1
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+
+[node name="body" type="CollisionPolygon2D" parent="decorations/treasure_chest" index="0"]
+
+build_mode = 0
+polygon = PoolVector2Array( 744, 448, 768, 448, 768, 392, 752, 384, 744, 392 )
+
+[node name="door" type="Node2D" parent="." index="6"]
+
+[node name="door" type="Area2D" parent="door" index="0"]
 
 input_pickable = true
 gravity_vec = Vector2( 0, 1 )
@@ -99,9 +336,9 @@ angular_damp = 1.0
 audio_bus_override = false
 audio_bus_name = "Master"
 
-[node name="door_events" type="CollisionPolygon2D" parent="House" index="0"]
+[node name="event" type="CollisionPolygon2D" parent="door/door" index="0"]
 
 build_mode = 0
-polygon = PoolVector2Array( 208, 512, 208, 480, 240, 480, 240, 512 )
+polygon = PoolVector2Array( 576, 464, 608, 464, 608, 440, 576, 440 )
 
 

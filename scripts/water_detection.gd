@@ -10,10 +10,10 @@ func _physics_process(delta):
 	# While the player is in the water
 	if (is_entered):
 		# Get global status of interacting (event polling stored globally)
-		if (get_node("/root/Global").is_interacting):
+		if (get_node("/root/scene_manager").is_interacting):
 			print("Splash")
 			# End global interacting status
-			get_node("/root/Global").is_interacting = false
+			get_node("/root/scene_manager").is_interacting = false
 	
 	
 func _on_Water_body_entered(body):

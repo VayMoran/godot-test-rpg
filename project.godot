@@ -11,12 +11,13 @@ config_version=3
 [application]
 
 config/name="godot-test-rpg"
-run/main_scene="res://scenes/land.tscn"
+run/main_scene="res://scenes/menu/menu_main.tscn"
 config/icon="res://icon.png"
 
 [autoload]
 
-Global="*res://scripts/Global.gd"
+scene_manager="*res://scripts/scene_manager.gd"
+event_manager="*res://scripts/event_manager.gd"
 
 [display]
 

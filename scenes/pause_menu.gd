@@ -13,7 +13,7 @@ func _physics_process(delta):
 	var escape = Input.is_action_just_pressed("ui_cancel")
 	
 	if (escape):
-		quit()
+		get_tree().quit()
 
 
 
@@ -21,5 +21,5 @@ func _on_Paused_Button_pressed():
 	# Resume game
 	get_tree().paused = false
 	# Load main land scene
-	var scene_load = "res://scenes/" + get_node("/root/Global").current_location + ".tscn"
-	get_node("/root/Global").goto_scene(scene_load)
+	var scene_load = "res://scenes/" + get_node("/root/scene_manager").current_location + ".tscn"
+	get_node("/root/scene_manager").goto_scene(scene_load)

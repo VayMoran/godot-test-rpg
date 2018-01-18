@@ -1,99 +1,44 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://tiles/lpc_test_base.png" type="Texture" id=1]
-[ext_resource path="res://scripts/water_detection.gd" type="Script" id=2]
-[ext_resource path="res://scenes/statue_events.gd" type="Script" id=3]
-[ext_resource path="res://scripts/house_events.gd" type="Script" id=4]
-[ext_resource path="res://scenes/player.tscn" type="PackedScene" id=5]
-[ext_resource path="res://tiles/lpc_test_risen.png" type="Texture" id=6]
+[ext_resource path="res://tiles/land.tmx" type="PackedScene" id=1]
+[ext_resource path="res://scenes/land_events.gd" type="Script" id=2]
+[ext_resource path="res://scenes/player.tscn" type="PackedScene" id=3]
 
-[sub_resource type="RectangleShape2D" id=1]
+[sub_resource type="CircleShape2D" id=1]
 
 custom_solver_bias = 0.0
-extents = Vector2( 16, 16 )
+radius = 16.0
 
-[node name="Land" type="Node2D"]
+[node name="land" instance=ExtResource( 1 )]
 
-__meta__ = {
-"_edit_vertical_guides_": [ -528.0 ]
-}
+[node name="house" type="Node2D" parent="." index="8"]
 
-[node name="Base" type="Sprite" parent="." index="0"]
+[node name="body" type="StaticBody2D" parent="house" index="0"]
 
-texture = ExtResource( 1 )
-centered = false
-_sections_unfolded = [ "Offset" ]
-
-[node name="Collision" type="KinematicBody2D" parent="." index="1"]
-
-editor/display_folded = true
-input_pickable = true
+input_pickable = false
 collision_layer = 1
 collision_mask = 1
-collision/safe_margin = 0.08
-_sections_unfolded = [ "Audio Bus", "Collision", "Material", "Pause", "Pickable", "Transform", "Visibility", "Z Index", "collision" ]
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
 
-[node name="tree_1" type="CollisionShape2D" parent="Collision" index="0"]
-
-position = Vector2( 80, 176 )
-shape = SubResource( 1 )
-_sections_unfolded = [ "Transform", "Visibility", "Z Index" ]
-
-[node name="tree_2" type="CollisionShape2D" parent="Collision" index="1"]
-
-position = Vector2( 272, 336 )
-shape = SubResource( 1 )
-_sections_unfolded = [ "Transform", "Visibility" ]
-
-[node name="tree_3" type="CollisionShape2D" parent="Collision" index="2"]
-
-position = Vector2( 464, 112 )
-shape = SubResource( 1 )
-_sections_unfolded = [ "Transform", "Visibility" ]
-
-[node name="statue_1" type="CollisionShape2D" parent="Collision" index="3"]
-
-position = Vector2( 208, 432 )
-shape = SubResource( 1 )
-_sections_unfolded = [ "Transform", "Visibility" ]
-
-[node name="walls_top" type="CollisionPolygon2D" parent="Collision" index="4"]
+[node name="left" type="CollisionPolygon2D" parent="house/body" index="0"]
 
 build_mode = 0
-polygon = PoolVector2Array( 0, 0, -16, -16, 528, -16, 512, 0 )
+polygon = PoolVector2Array( 480, 96, 480, 384, 576, 384, 576, 368, 608, 368, 608, 384, 640, 384, 640, 224, 512, 224, 512, 96, 480, 96 )
 
-[node name="walls_right" type="CollisionPolygon2D" parent="Collision" index="5"]
-
-build_mode = 0
-polygon = PoolVector2Array( 512, 0, 528, -16, 528, 528, 512, 512 )
-
-[node name="walls_bottom" type="CollisionPolygon2D" parent="Collision" index="6"]
+[node name="right" type="CollisionPolygon2D" parent="house/body" index="1"]
 
 build_mode = 0
-polygon = PoolVector2Array( 512, 512, 528, 528, -16, 528, 0, 512 )
+polygon = PoolVector2Array( 672, 384, 672, 224, 736, 224, 736, 96, 768, 96, 768, 384, 672, 384 )
 
-[node name="walls_left" type="CollisionPolygon2D" parent="Collision" index="7"]
-
-build_mode = 0
-polygon = PoolVector2Array( 0, 512, -16, 528, -16, -16, 0, 0 )
-
-[node name="house_1" type="CollisionPolygon2D" parent="Collision" index="8"]
+[node name="back" type="CollisionPolygon2D" parent="house/body" index="2"]
 
 build_mode = 0
-polygon = PoolVector2Array( 160, 0, 160, 128, 320, 128, 320, 0 )
+polygon = PoolVector2Array( 512, 96, 736, 96, 512, 96, 560, 96 )
 
-[node name="rock_1" type="CollisionPolygon2D" parent="Collision" index="9"]
-
-build_mode = 0
-polygon = PoolVector2Array( 128, 256, 192, 256, 192, 192, 128, 192 )
-
-[node name="rock_2" type="CollisionPolygon2D" parent="Collision" index="10"]
-
-position = Vector2( 288, -32 )
-build_mode = 0
-polygon = PoolVector2Array( 128, 256, 192, 256, 192, 192, 128, 192 )
-
-[node name="Water" type="Area2D" parent="." index="2"]
+[node name="door" type="Area2D" parent="house" index="1"]
 
 input_pickable = true
 gravity_vec = Vector2( 0, 1 )
@@ -102,15 +47,670 @@ linear_damp = 0.1
 angular_damp = 1.0
 audio_bus_override = false
 audio_bus_name = "Master"
-_sections_unfolded = [ "Collision" ]
 
-[node name="water" type="CollisionPolygon2D" parent="Water" index="0"]
+[node name="event" type="CollisionPolygon2D" parent="house/door" index="0"]
 
 build_mode = 0
-polygon = PoolVector2Array( 0, 304, 80, 304, 80, 400, 144, 400, 144, 432, 176, 432, 176, 512, 0, 512 )
+polygon = PoolVector2Array( 576, 368, 576, 416, 608, 416, 608, 368 )
 script = ExtResource( 2 )
 
-[node name="Statue" type="Area2D" parent="." index="3"]
+[node name="trees" type="Node2D" parent="." index="9"]
+
+editor/display_folded = true
+
+[node name="tree_body_1" type="StaticBody2D" parent="trees" index="0"]
+
+editor/display_folded = true
+input_pickable = false
+collision_layer = 1
+collision_mask = 1
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="trees/tree_body_1" index="0"]
+
+position = Vector2( 208, 112 )
+shape = SubResource( 1 )
+_sections_unfolded = [ "Transform", "Z Index" ]
+
+[node name="tree_body_2" type="StaticBody2D" parent="trees" index="1"]
+
+editor/display_folded = true
+input_pickable = false
+collision_layer = 1
+collision_mask = 1
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="trees/tree_body_2" index="0"]
+
+position = Vector2( 144, 336 )
+shape = SubResource( 1 )
+_sections_unfolded = [ "Transform", "Z Index" ]
+
+[node name="tree_body_3" type="StaticBody2D" parent="trees" index="2"]
+
+editor/display_folded = true
+input_pickable = false
+collision_layer = 1
+collision_mask = 1
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="trees/tree_body_3" index="0"]
+
+position = Vector2( 272, 688 )
+shape = SubResource( 1 )
+_sections_unfolded = [ "Transform", "Z Index" ]
+
+[node name="tree_body_4" type="StaticBody2D" parent="trees" index="3"]
+
+editor/display_folded = true
+input_pickable = false
+collision_layer = 1
+collision_mask = 1
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="trees/tree_body_4" index="0"]
+
+position = Vector2( 528, 496 )
+shape = SubResource( 1 )
+_sections_unfolded = [ "Transform", "Z Index" ]
+
+[node name="tree_body_5" type="StaticBody2D" parent="trees" index="4"]
+
+editor/display_folded = true
+input_pickable = false
+collision_layer = 1
+collision_mask = 1
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="trees/tree_body_5" index="0"]
+
+position = Vector2( 1040, 368 )
+shape = SubResource( 1 )
+_sections_unfolded = [ "Transform", "Z Index" ]
+
+[node name="tree_body_6" type="StaticBody2D" parent="trees" index="5"]
+
+editor/display_folded = true
+input_pickable = false
+collision_layer = 1
+collision_mask = 1
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="trees/tree_body_6" index="0"]
+
+position = Vector2( 1232, 144 )
+shape = SubResource( 1 )
+_sections_unfolded = [ "Transform", "Z Index" ]
+
+[node name="tree_body_7" type="StaticBody2D" parent="trees" index="6"]
+
+editor/display_folded = true
+input_pickable = false
+collision_layer = 1
+collision_mask = 1
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="trees/tree_body_7" index="0"]
+
+position = Vector2( 880, 112 )
+shape = SubResource( 1 )
+_sections_unfolded = [ "Transform", "Z Index" ]
+
+[node name="tree_body_8" type="StaticBody2D" parent="trees" index="7"]
+
+editor/display_folded = true
+input_pickable = false
+collision_layer = 1
+collision_mask = 1
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="trees/tree_body_8" index="0"]
+
+position = Vector2( 368, 176 )
+shape = SubResource( 1 )
+_sections_unfolded = [ "Transform", "Z Index" ]
+
+[node name="tree_event_1" type="Area2D" parent="trees" index="8"]
+
+input_pickable = true
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+audio_bus_override = false
+audio_bus_name = "Master"
+
+[node name="event" type="CollisionPolygon2D" parent="trees/tree_event_1" index="0"]
+
+build_mode = 0
+polygon = PoolVector2Array( 176, 144, 240, 144, 240, 80, 176, 80 )
+script = ExtResource( 2 )
+
+[node name="tree_event_2" type="Area2D" parent="trees" index="9"]
+
+input_pickable = true
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+audio_bus_override = false
+audio_bus_name = "Master"
+
+[node name="event" type="CollisionPolygon2D" parent="trees/tree_event_2" index="0"]
+
+build_mode = 0
+polygon = PoolVector2Array( 112, 368, 176, 368, 176, 304, 112, 304 )
+script = ExtResource( 2 )
+
+[node name="tree_event_3" type="Area2D" parent="trees" index="10"]
+
+input_pickable = true
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+audio_bus_override = false
+audio_bus_name = "Master"
+
+[node name="event" type="CollisionPolygon2D" parent="trees/tree_event_3" index="0"]
+
+build_mode = 0
+polygon = PoolVector2Array( 240, 720, 304, 720, 304, 656, 240, 656 )
+script = ExtResource( 2 )
+
+[node name="tree_event_4" type="Area2D" parent="trees" index="11"]
+
+input_pickable = true
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+audio_bus_override = false
+audio_bus_name = "Master"
+
+[node name="event" type="CollisionPolygon2D" parent="trees/tree_event_4" index="0"]
+
+build_mode = 0
+polygon = PoolVector2Array( 496, 528, 560, 528, 560, 464, 496, 464 )
+script = ExtResource( 2 )
+
+[node name="tree_event_5" type="Area2D" parent="trees" index="12"]
+
+input_pickable = true
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+audio_bus_override = false
+audio_bus_name = "Master"
+
+[node name="event" type="CollisionPolygon2D" parent="trees/tree_event_5" index="0"]
+
+build_mode = 0
+polygon = PoolVector2Array( 1072, 400, 1072, 336, 1008, 336, 1008, 400 )
+script = ExtResource( 2 )
+
+[node name="tree_event_6" type="Area2D" parent="trees" index="13"]
+
+input_pickable = true
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+audio_bus_override = false
+audio_bus_name = "Master"
+
+[node name="event" type="CollisionPolygon2D" parent="trees/tree_event_6" index="0"]
+
+build_mode = 0
+polygon = PoolVector2Array( 1200, 176, 1264, 176, 1264, 112, 1200, 112 )
+script = ExtResource( 2 )
+
+[node name="tree_event_7" type="Area2D" parent="trees" index="14"]
+
+input_pickable = true
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+audio_bus_override = false
+audio_bus_name = "Master"
+
+[node name="event" type="CollisionPolygon2D" parent="trees/tree_event_7" index="0"]
+
+build_mode = 0
+polygon = PoolVector2Array( 848, 144, 912, 144, 912, 80, 848, 80 )
+script = ExtResource( 2 )
+
+[node name="tree_event_8" type="Area2D" parent="trees" index="15"]
+
+input_pickable = true
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+audio_bus_override = false
+audio_bus_name = "Master"
+
+[node name="event" type="CollisionPolygon2D" parent="trees/tree_event_8" index="0"]
+
+build_mode = 0
+polygon = PoolVector2Array( 336, 208, 400, 208, 400, 144, 336, 144 )
+script = ExtResource( 2 )
+
+[node name="decorations" type="Node2D" parent="." index="10"]
+
+editor/display_folded = true
+
+[node name="rock_body_1" type="StaticBody2D" parent="decorations" index="0"]
+
+editor/display_folded = true
+input_pickable = false
+collision_layer = 1
+collision_mask = 1
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+
+[node name="collision" type="CollisionPolygon2D" parent="decorations/rock_body_1" index="0"]
+
+build_mode = 0
+polygon = PoolVector2Array( 64, 192, 96, 192, 96, 160, 64, 160 )
+
+[node name="rock_body_2" type="StaticBody2D" parent="decorations" index="1"]
+
+editor/display_folded = true
+input_pickable = false
+collision_layer = 1
+collision_mask = 1
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+
+[node name="collision" type="CollisionPolygon2D" parent="decorations/rock_body_2" index="0"]
+
+build_mode = 0
+polygon = PoolVector2Array( 32, 384, 64, 384, 64, 352, 32, 352 )
+
+[node name="rock_body_3" type="StaticBody2D" parent="decorations" index="2"]
+
+editor/display_folded = true
+input_pickable = false
+collision_layer = 1
+collision_mask = 1
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+
+[node name="collision" type="CollisionPolygon2D" parent="decorations/rock_body_3" index="0"]
+
+build_mode = 0
+polygon = PoolVector2Array( 928, 448, 960, 448, 960, 416, 928, 416 )
+
+[node name="rock_body_4" type="StaticBody2D" parent="decorations" index="3"]
+
+editor/display_folded = true
+input_pickable = false
+collision_layer = 1
+collision_mask = 1
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+
+[node name="collision" type="CollisionPolygon2D" parent="decorations/rock_body_4" index="0"]
+
+build_mode = 0
+polygon = PoolVector2Array( 1120, 320, 1152, 320, 1152, 288, 1120, 288 )
+
+[node name="rock_body_5" type="StaticBody2D" parent="decorations" index="4"]
+
+editor/display_folded = true
+input_pickable = false
+collision_layer = 1
+collision_mask = 1
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+
+[node name="collision" type="CollisionPolygon2D" parent="decorations/rock_body_5" index="0"]
+
+build_mode = 0
+polygon = PoolVector2Array( 1088, 96, 1120, 96, 1120, 64, 1088, 64 )
+
+[node name="rock_event_1" type="Area2D" parent="decorations" index="5"]
+
+input_pickable = true
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+audio_bus_override = false
+audio_bus_name = "Master"
+
+[node name="event" type="CollisionPolygon2D" parent="decorations/rock_event_1" index="0"]
+
+build_mode = 0
+polygon = PoolVector2Array( 48, 144, 48, 208, 112, 208, 112, 144 )
+script = ExtResource( 2 )
+
+[node name="rock_event_2" type="Area2D" parent="decorations" index="6"]
+
+input_pickable = true
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+audio_bus_override = false
+audio_bus_name = "Master"
+
+[node name="event" type="CollisionPolygon2D" parent="decorations/rock_event_2" index="0"]
+
+position = Vector2( -32, 192 )
+build_mode = 0
+polygon = PoolVector2Array( 48, 144, 48, 208, 112, 208, 112, 144 )
+script = ExtResource( 2 )
+
+[node name="rock_event_3" type="Area2D" parent="decorations" index="7"]
+
+input_pickable = true
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+audio_bus_override = false
+audio_bus_name = "Master"
+
+[node name="event" type="CollisionPolygon2D" parent="decorations/rock_event_3" index="0"]
+
+position = Vector2( 864, 256 )
+build_mode = 0
+polygon = PoolVector2Array( 48, 144, 48, 208, 112, 208, 112, 144 )
+script = ExtResource( 2 )
+
+[node name="rock_event_4" type="Area2D" parent="decorations" index="8"]
+
+input_pickable = true
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+audio_bus_override = false
+audio_bus_name = "Master"
+
+[node name="event" type="CollisionPolygon2D" parent="decorations/rock_event_4" index="0"]
+
+position = Vector2( 1056, 128 )
+build_mode = 0
+polygon = PoolVector2Array( 48, 144, 48, 208, 112, 208, 112, 144 )
+script = ExtResource( 2 )
+
+[node name="rock_event_5" type="Area2D" parent="decorations" index="9"]
+
+input_pickable = true
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+audio_bus_override = false
+audio_bus_name = "Master"
+
+[node name="event" type="CollisionPolygon2D" parent="decorations/rock_event_5" index="0"]
+
+position = Vector2( 1024, -96 )
+build_mode = 0
+polygon = PoolVector2Array( 48, 144, 48, 208, 112, 208, 112, 144 )
+script = ExtResource( 2 )
+
+[node name="flour_pile_body" type="StaticBody2D" parent="decorations" index="10"]
+
+editor/display_folded = true
+input_pickable = false
+collision_layer = 1
+collision_mask = 1
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+
+[node name="body" type="CollisionPolygon2D" parent="decorations/flour_pile_body" index="0"]
+
+build_mode = 0
+polygon = PoolVector2Array( 256, 352, 288, 352, 288, 304, 272, 304, 272, 288, 240, 288, 240, 312, 224, 312, 224, 336, 256, 336 )
+_sections_unfolded = [ "Material", "Pause", "Transform", "Visibility", "Z Index" ]
+
+[node name="flour_open_body" type="StaticBody2D" parent="decorations" index="11"]
+
+editor/display_folded = true
+input_pickable = false
+collision_layer = 1
+collision_mask = 1
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+
+[node name="body" type="CollisionPolygon2D" parent="decorations/flour_open_body" index="0"]
+
+build_mode = 0
+polygon = PoolVector2Array( 288, 272, 320, 272, 320, 248, 288, 248 )
+_sections_unfolded = [ "Material", "Pause", "Transform", "Visibility", "Z Index" ]
+
+[node name="four_pile_event" type="Area2D" parent="decorations" index="12"]
+
+input_pickable = true
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+audio_bus_override = false
+audio_bus_name = "Master"
+
+[node name="event" type="CollisionPolygon2D" parent="decorations/four_pile_event" index="0"]
+
+build_mode = 0
+polygon = PoolVector2Array( 248, 360, 296, 360, 296, 296, 280, 296, 280, 280, 232, 280, 232, 304, 216, 304, 216, 344, 248, 344, 248, 360 )
+script = ExtResource( 2 )
+
+[node name="flour_open_event" type="Area2D" parent="decorations" index="13"]
+
+input_pickable = true
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+audio_bus_override = false
+audio_bus_name = "Master"
+
+[node name="event" type="CollisionPolygon2D" parent="decorations/flour_open_event" index="0"]
+
+build_mode = 0
+polygon = PoolVector2Array( 280, 280, 328, 280, 328, 240, 280, 240 )
+script = ExtResource( 2 )
+
+[node name="barrels_body" type="StaticBody2D" parent="decorations" index="14"]
+
+editor/display_folded = true
+input_pickable = false
+collision_layer = 1
+collision_mask = 1
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+
+[node name="body" type="CollisionPolygon2D" parent="decorations/barrels_body" index="0"]
+
+build_mode = 0
+polygon = PoolVector2Array( 200, 512, 200, 488, 208, 488, 208, 448, 184, 448, 184, 464, 160, 464, 160, 496, 176, 496, 176, 512 )
+
+[node name="barrels_event" type="Area2D" parent="decorations" index="15"]
+
+input_pickable = true
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+audio_bus_override = false
+audio_bus_name = "Master"
+
+[node name="event" type="CollisionPolygon2D" parent="decorations/barrels_event" index="0"]
+
+build_mode = 0
+polygon = PoolVector2Array( 168, 520, 208, 520, 208, 496, 216, 496, 216, 440, 176, 440, 176, 456, 152, 456, 152, 504, 168, 504 )
+script = ExtResource( 2 )
+
+[node name="logs_body" type="StaticBody2D" parent="decorations" index="16"]
+
+editor/display_folded = true
+input_pickable = false
+collision_layer = 1
+collision_mask = 1
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+
+[node name="collision" type="CollisionPolygon2D" parent="decorations/logs_body" index="0"]
+
+position = Vector2( 728, 184 )
+build_mode = 0
+polygon = PoolVector2Array( 72, 192, 96, 192, 96, 144, 64, 144, 64, 160, 48, 160, 48, 192, 72, 192 )
+
+[node name="logs_event" type="Area2D" parent="decorations" index="17"]
+
+input_pickable = true
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+audio_bus_override = false
+audio_bus_name = "Master"
+
+[node name="event" type="CollisionPolygon2D" parent="decorations/logs_event" index="0"]
+
+build_mode = 0
+polygon = PoolVector2Array( 768, 384, 832, 384, 832, 320, 784, 320, 784, 336, 768, 336, 768, 384 )
+script = ExtResource( 2 )
+
+[node name="anvil_body" type="StaticBody2D" parent="decorations" index="18"]
+
+editor/display_folded = true
+input_pickable = false
+collision_layer = 1
+collision_mask = 1
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+
+[node name="collision" type="CollisionPolygon2D" parent="decorations/anvil_body" index="0"]
+
+position = Vector2( 800, 96 )
+build_mode = 0
+polygon = PoolVector2Array( 64, 192, 96, 192, 96, 160, 64, 160 )
+
+[node name="anvil_event" type="Area2D" parent="decorations" index="19"]
+
+input_pickable = true
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+audio_bus_override = false
+audio_bus_name = "Master"
+
+[node name="event" type="CollisionPolygon2D" parent="decorations/anvil_event" index="0"]
+
+build_mode = 0
+polygon = PoolVector2Array( 856, 296, 904, 296, 904, 248, 856, 248 )
+script = ExtResource( 2 )
+
+[node name="statue_body" type="StaticBody2D" parent="decorations" index="20"]
+
+input_pickable = false
+collision_layer = 1
+collision_mask = 1
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+
+[node name="collision" type="CollisionPolygon2D" parent="decorations/statue_body" index="0"]
+
+position = Vector2( 992, 320 )
+build_mode = 0
+polygon = PoolVector2Array( 64, 192, 96, 192, 96, 160, 64, 160 )
+
+[node name="statue_event" type="Area2D" parent="decorations" index="21"]
+
+input_pickable = true
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+audio_bus_override = false
+audio_bus_name = "Master"
+
+[node name="event" type="CollisionPolygon2D" parent="decorations/statue_event" index="0"]
+
+build_mode = 0
+polygon = PoolVector2Array( 1048, 520, 1096, 520, 1096, 464, 1048, 464 )
+script = ExtResource( 2 )
+
+[node name="water2" type="Node2D" parent="." index="11"]
+
+editor/display_folded = true
+
+[node name="body" type="StaticBody2D" parent="water2" index="0"]
+
+input_pickable = false
+collision_layer = 1
+collision_mask = 1
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="water2/body" index="0"]
+
+build_mode = 0
+polygon = PoolVector2Array( 0, 656, 80, 656, 80, 528, 0, 528 )
+
+[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="water2/body" index="1"]
+
+build_mode = 0
+polygon = PoolVector2Array( 144, 528, 144, 656, 304, 656, 304, 688, 368, 688, 368, 720, 400, 720, 400, 736, 1280, 736, 1280, 624, 944, 624, 944, 560, 720, 560, 720, 624, 496, 624, 496, 560, 368, 560, 368, 528 )
+
+[node name="detection" type="Area2D" parent="water2" index="1"]
 
 editor/display_folded = true
 input_pickable = true
@@ -121,48 +721,116 @@ angular_damp = 1.0
 audio_bus_override = false
 audio_bus_name = "Master"
 
-[node name="statue" type="CollisionPolygon2D" parent="Statue" index="0"]
+[node name="left" type="CollisionPolygon2D" parent="water2/detection" index="0"]
 
 build_mode = 0
-polygon = PoolVector2Array( 192, 464, 240, 464, 240, 400, 192, 400 )
-script = ExtResource( 3 )
+polygon = PoolVector2Array( 0, 656, 80, 656, 80, 528, 0, 528 )
 
-[node name="HouseEvents" type="Area2D" parent="." index="4"]
+[node name="right" type="CollisionPolygon2D" parent="water2/detection" index="1"]
 
-input_pickable = true
-gravity_vec = Vector2( 0, 1 )
-gravity = 98.0
-linear_damp = 0.1
-angular_damp = 1.0
-audio_bus_override = false
-audio_bus_name = "Master"
-
-[node name="house" type="CollisionPolygon2D" parent="HouseEvents" index="0"]
-
-position = Vector2( -0.00152587, 0 )
 build_mode = 0
-polygon = PoolVector2Array( 224, 128, 224, 160, 256, 160, 256, 128 )
-script = ExtResource( 4 )
+polygon = PoolVector2Array( 144, 528, 144, 656, 304, 656, 304, 688, 368, 688, 368, 720, 400, 720, 400, 736, 1280, 736, 1280, 624, 944, 624, 944, 560, 720, 560, 720, 624, 496, 624, 496, 560, 368, 560, 368, 528, 144, 528 )
 
-[node name="Player" parent="." index="5" instance=ExtResource( 5 )]
+[node name="boundary" type="Node2D" parent="." index="12"]
 
-position = Vector2( 109, 46 )
-_sections_unfolded = [ "Collision", "Pickable", "Transform" ]
-walk_speed = 150.0
-walk_animation_scale = 2.0
+editor/display_folded = true
+visible = false
 
-[node name="Risen" type="Sprite" parent="." index="6"]
+[node name="scene" type="StaticBody2D" parent="boundary" index="0"]
 
-texture = ExtResource( 6 )
-centered = false
-_sections_unfolded = [ "Offset" ]
+input_pickable = false
+collision_layer = 1
+collision_mask = 1
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
 
-[connection signal="body_entered" from="Water" to="Water/water" method="_on_Water_body_entered"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="boundary/scene" index="0"]
 
-[connection signal="body_exited" from="Water" to="Water/water" method="_on_Water_body_exited"]
+build_mode = 1
+polygon = PoolVector2Array( 0, 720, 0, 0, 1280, 0, 1280, 720 )
 
-[connection signal="body_entered" from="HouseEvents" to="HouseEvents/house" method="_on_House_body_entered"]
+[node name="Player" parent="." index="13" instance=ExtResource( 3 )]
 
-[connection signal="body_exited" from="HouseEvents" to="HouseEvents/house" method="_on_House_body_exited"]
+[connection signal="body_entered" from="house/door" to="house/door/event" method="_on_door_body_entered"]
+
+[connection signal="body_exited" from="house/door" to="house/door/event" method="_on_door_body_exited"]
+
+[connection signal="body_entered" from="trees/tree_event_1" to="trees/tree_event_1/event" method="_on_tree_event_1_body_entered"]
+
+[connection signal="body_exited" from="trees/tree_event_1" to="trees/tree_event_1/event" method="_on_tree_event_1_body_exited"]
+
+[connection signal="body_entered" from="trees/tree_event_2" to="trees/tree_event_2/event" method="_on_tree_event_2_body_entered"]
+
+[connection signal="body_exited" from="trees/tree_event_2" to="trees/tree_event_2/event" method="_on_tree_event_2_body_exited"]
+
+[connection signal="body_entered" from="trees/tree_event_3" to="trees/tree_event_3/event" method="_on_tree_event_3_body_entered"]
+
+[connection signal="body_exited" from="trees/tree_event_3" to="trees/tree_event_3/event" method="_on_tree_event_3_body_exited"]
+
+[connection signal="body_entered" from="trees/tree_event_4" to="trees/tree_event_4/event" method="_on_tree_event_4_body_entered"]
+
+[connection signal="body_exited" from="trees/tree_event_4" to="trees/tree_event_4/event" method="_on_tree_event_4_body_exited"]
+
+[connection signal="body_entered" from="trees/tree_event_5" to="trees/tree_event_5/event" method="_on_tree_event_5_body_entered"]
+
+[connection signal="body_exited" from="trees/tree_event_5" to="trees/tree_event_5/event" method="_on_tree_event_5_body_exited"]
+
+[connection signal="body_entered" from="trees/tree_event_6" to="trees/tree_event_6/event" method="_on_tree_event_6_body_entered"]
+
+[connection signal="body_exited" from="trees/tree_event_6" to="trees/tree_event_6/event" method="_on_tree_event_6_body_exited"]
+
+[connection signal="body_entered" from="trees/tree_event_7" to="trees/tree_event_7/event" method="_on_tree_event_7_body_entered"]
+
+[connection signal="body_exited" from="trees/tree_event_7" to="trees/tree_event_7/event" method="_on_tree_event_7_body_exited"]
+
+[connection signal="body_entered" from="trees/tree_event_8" to="trees/tree_event_8/event" method="_on_tree_event_8_body_entered"]
+
+[connection signal="body_exited" from="trees/tree_event_8" to="trees/tree_event_8/event" method="_on_tree_event_8_body_exited"]
+
+[connection signal="body_entered" from="decorations/rock_event_1" to="decorations/rock_event_1/event" method="_on_rock_event_1_body_entered"]
+
+[connection signal="body_exited" from="decorations/rock_event_1" to="decorations/rock_event_1/event" method="_on_rock_event_1_body_exited"]
+
+[connection signal="body_entered" from="decorations/rock_event_2" to="decorations/rock_event_2/event" method="_on_rock_event_2_body_entered"]
+
+[connection signal="body_exited" from="decorations/rock_event_2" to="decorations/rock_event_2/event" method="_on_rock_event_2_body_exited"]
+
+[connection signal="body_entered" from="decorations/rock_event_3" to="decorations/rock_event_3/event" method="_on_rock_event_3_body_entered"]
+
+[connection signal="body_exited" from="decorations/rock_event_3" to="decorations/rock_event_3/event" method="_on_rock_event_3_body_exited"]
+
+[connection signal="body_entered" from="decorations/rock_event_4" to="decorations/rock_event_4/event" method="_on_rock_event_4_body_entered"]
+
+[connection signal="body_exited" from="decorations/rock_event_4" to="decorations/rock_event_4/event" method="_on_rock_event_4_body_exited"]
+
+[connection signal="body_entered" from="decorations/rock_event_5" to="decorations/rock_event_5/event" method="_on_rock_event_5_body_entered"]
+
+[connection signal="body_exited" from="decorations/rock_event_5" to="decorations/rock_event_5/event" method="_on_rock_event_5_body_exited"]
+
+[connection signal="body_entered" from="decorations/four_pile_event" to="decorations/four_pile_event/event" method="_on_four_pile_event_body_entered"]
+
+[connection signal="body_exited" from="decorations/four_pile_event" to="decorations/four_pile_event/event" method="_on_four_pile_event_body_exited"]
+
+[connection signal="body_entered" from="decorations/flour_open_event" to="decorations/flour_open_event/event" method="_on_flour_open_event_body_entered"]
+
+[connection signal="body_exited" from="decorations/flour_open_event" to="decorations/flour_open_event/event" method="_on_flour_open_event_body_exited"]
+
+[connection signal="body_entered" from="decorations/barrels_event" to="decorations/barrels_event/event" method="_on_barrels_event_body_entered"]
+
+[connection signal="body_exited" from="decorations/barrels_event" to="decorations/barrels_event/event" method="_on_barrels_event_body_exited"]
+
+[connection signal="body_entered" from="decorations/logs_event" to="decorations/logs_event/event" method="_on_logs_event_body_entered"]
+
+[connection signal="body_exited" from="decorations/logs_event" to="decorations/logs_event/event" method="_on_logs_event_body_exited"]
+
+[connection signal="body_entered" from="decorations/anvil_event" to="decorations/anvil_event/event" method="_on_anvil_event_body_entered"]
+
+[connection signal="body_exited" from="decorations/anvil_event" to="decorations/anvil_event/event" method="_on_anvil_event_body_exited"]
+
+[connection signal="body_entered" from="decorations/statue_event" to="decorations/statue_event/event" method="_on_statue_event_body_entered"]
+
+[connection signal="body_exited" from="decorations/statue_event" to="decorations/statue_event/event" method="_on_statue_event_body_exited"]
 
 

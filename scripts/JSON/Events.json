@@ -1,0 +1,45 @@
+{
+	"Events": [
+	{
+		"name": "land",
+		"message": "This place is beautiful."
+	},
+	{
+		"name": "statue",
+		"message": "I'm just a statue you cunt!"
+	},
+	{
+		"name": "door",
+		"message": "Cum inside",
+		"scene change": "house"
+	},
+	{
+		"name": "tree",
+		"message": "Want to feel my wood?"
+	},
+	{
+		"name": "rock",
+		"message": "Are you as hard as me?"
+	},
+	{
+		"name": "flour pile",
+		"message": "I'm so heavy"
+	},
+	{
+		"name": "open flour",
+		"message": "Don't snort me!"
+	},
+	{
+		"name": "barrels",
+		"message": "Get in my belly!"
+	},
+	{
+		"name": "logs",
+		"message": "Have you seen my friend molly?"
+	},
+	{
+		"name": "anvil",
+		"message": "Bang me harder"
+	}
+	]
+}

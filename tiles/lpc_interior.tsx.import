@@ -1,0 +1,22 @@
+[remap]
+
+importer="vnen.tiled_tileset_importer"
+type="TileSet"
+path="res://.import/lpc_interior.tsx-7a8e03971372a589accded7fe84c8e77.res"
+
+[deps]
+
+source_file="res://tiles/lpc_interior.tsx"
+source_md5="a9d3d28027ea1a02933d628a6b44abe5"
+
+dest_files=[ "res://.import/lpc_interior.tsx-7a8e03971372a589accded7fe84c8e77.res" ]
+dest_md5="800c3d9fbbc1da7421609f5ab08a630d"
+
+[params]
+
+custom_properties=true
+tile_metadata=false
+image_flags=7
+embed_internal_images=false
+save_tiled_properties=false
+post_import_script=""
